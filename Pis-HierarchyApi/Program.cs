@@ -6,16 +6,14 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using OrgHierarchyApi.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseMySql(
-        builder.Configuration.GetConnectionString("DefaultConnection"),
-        ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("DefaultConnection")
     ));
 builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
 {
@@ -52,6 +50,8 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.Urls.Add("http://0.0.0.0:80");
 
 if (app.Environment.IsDevelopment())
 {

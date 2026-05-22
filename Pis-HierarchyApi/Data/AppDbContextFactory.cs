@@ -1,9 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
-using OrgHierarchyApi.Data;
 using System.IO;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 namespace OrgHierarchyApi.Data
 {
@@ -17,12 +15,10 @@ namespace OrgHierarchyApi.Data
                 .Build();
 
             var builder = new DbContextOptionsBuilder<AppDbContext>();
+
             var connectionString = configuration.GetConnectionString("DefaultConnection");
 
-            builder.UseMySql(
-                connectionString,
-                ServerVersion.AutoDetect(connectionString)
-            );
+            builder.UseNpgsql(connectionString);
 
             return new AppDbContext(builder.Options);
         }

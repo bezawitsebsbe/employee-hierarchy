@@ -37,8 +37,6 @@ C:\Users\almubdie\OneDrive\Desktop\pis-employee-hierarchy\Pis-HierarchyApi\bin\D
 C:\Users\almubdie\OneDrive\Desktop\pis-employee-hierarchy\Pis-HierarchyApi\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\almubdie\OneDrive\Desktop\pis-employee-hierarchy\Pis-HierarchyApi\bin\Debug\net8.0\Microsoft.OpenApi.dll
 C:\Users\almubdie\OneDrive\Desktop\pis-employee-hierarchy\Pis-HierarchyApi\bin\Debug\net8.0\Mono.TextTemplating.dll
-C:\Users\almubdie\OneDrive\Desktop\pis-employee-hierarchy\Pis-HierarchyApi\bin\Debug\net8.0\MySqlConnector.dll
-C:\Users\almubdie\OneDrive\Desktop\pis-employee-hierarchy\Pis-HierarchyApi\bin\Debug\net8.0\Pomelo.EntityFrameworkCore.MySql.dll
 C:\Users\almubdie\OneDrive\Desktop\pis-employee-hierarchy\Pis-HierarchyApi\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\almubdie\OneDrive\Desktop\pis-employee-hierarchy\Pis-HierarchyApi\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\almubdie\OneDrive\Desktop\pis-employee-hierarchy\Pis-HierarchyApi\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -123,3 +121,5 @@ C:\Users\almubdie\OneDrive\Desktop\pis-employee-hierarchy\Pis-HierarchyApi\obj\D
 C:\Users\almubdie\OneDrive\Desktop\pis-employee-hierarchy\Pis-HierarchyApi\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.Pis-HierarchyApi.props
 C:\Users\almubdie\OneDrive\Desktop\pis-employee-hierarchy\Pis-HierarchyApi\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.Pis-HierarchyApi.props
 C:\Users\almubdie\OneDrive\Desktop\pis-employee-hierarchy\Pis-HierarchyApi\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\almubdie\OneDrive\Desktop\pis-employee-hierarchy\Pis-HierarchyApi\bin\Debug\net8.0\Npgsql.dll
+C:\Users\almubdie\OneDrive\Desktop\pis-employee-hierarchy\Pis-HierarchyApi\bin\Debug\net8.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
