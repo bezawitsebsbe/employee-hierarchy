@@ -49,29 +49,24 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddSwaggerGen();
 
-var app = builder.Build();
-
-app.Urls.Add("http://0.0.0.0:80");
-
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-else
-{
-    app.UseHttpsRedirection();
-}
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend",
         policy =>
         {
-            policy.WithOrigins("https://YOUR-NETLIFY-URL.netlify.app")
-                  .AllowAnyHeader()
-                  .AllowAnyMethod();
+            policy
+                .WithOrigins("https://employee-hierarchy.netlify.app")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
         });
 });
+
+var app = builder.Build();
+
+app.UseCors("AllowFrontend");
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseAuthentication();
 app.UseAuthorization();
