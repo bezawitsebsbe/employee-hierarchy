@@ -1,0 +1,85 @@
+<div class="min-h-screen bg-gray-950 text-gray-100 flex flex-col">
+  <!-- Header -->
+  <header class="bg-gray-900 border-b border-gray-800 px-6 py-4 flex items-center justify-between">
+    <h1 class="text-2xl font-bold tracking-tight">
+      <span class="text-blue-500">Organization</span>Employee-Hierarchy
+    </h1>
+    <div class="flex items-center gap-4">
+      <span class="text-gray-400 text-sm hidden sm:inline"
+        >Welcome, {{ currentUserName || 'User' }}</span
+      >
+      <button
+        class="px-4 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800 rounded-md transition-colors border border-gray-700"
+      >
+        Sign Out
+      </button>
+    </div>
+  </header>
+
+  <main class="flex-1 p-6">
+    <div class="max-w-lg mx-auto bg-gray-900 rounded-xl p-8 border border-gray-800 shadow-2xl">
+      <h2 class="text-3xl font-bold mb-8 text-center">Create New Position</h2>
+
+      <form [formGroup]="positionForm" (ngSubmit)="onSubmit()" class="space-y-6">
+        <div>
+          <label class="block text-sm font-medium text-gray-400 mb-2">
+            Position Name <span class="text-red-400">*</span>
+          </label>
+          <input
+            formControlName="name"
+            type="text"
+            placeholder="e.g. Frontend Developer"
+            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-gray-100 focus:outline-none focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+            [class.border-red-500]="
+              positionForm.get('name')?.invalid && positionForm.get('name')?.touched
+            "
+            required
+          />
+          <div
+            *ngIf="positionForm.get('name')?.invalid && positionForm.get('name')?.touched"
+            class="text-red-400 text-sm mt-1"
+          >
+            Name is required and must be at least 3 characters
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-400 mb-2">Description</label>
+          <textarea
+            formControlName="description"
+            rows="4"
+            placeholder="Brief description of the role..."
+            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-gray-100 focus:outline-none focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+          ></textarea>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-400 mb-2">Parent Position</label>
+          <select
+            formControlName="parentId"
+            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-gray-100 focus:outline-none focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+          >
+            <option [value]="null">None (Root level)</option>
+            <option *ngFor="let p of parentPositions" [value]="p.id">{{ p.name }}</option>
+          </select>
+        </div>
+
+        <div *ngIf="errorMessage" class="text-red-400 text-center">
+          {{ errorMessage }}
+        </div>
+
+        <button
+          type="submit"
+          [disabled]="isLoading || positionForm.invalid"
+          class="w-full py-3 bg-teal-600 hover:bg-teal-500 text-white font-semibold rounded-lg transition-colors duration-200 mt-6 disabled:opacity-50"
+        >
+          {{ isLoading ? 'Creating...' : 'Create Position' }}
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <footer class="py-6 text-center text-gray-600 text-sm border-t border-gray-800">
+    © 2025 Organization Hierarchy • All rights reserved
+  </footer>
+</div>

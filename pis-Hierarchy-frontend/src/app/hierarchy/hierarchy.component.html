@@ -1,0 +1,97 @@
+<div class="min-h-screen bg-gray-950 text-gray-100 flex flex-col">
+  <!-- Header -->
+  <header class="bg-gray-900 border-b border-gray-800 px-6 py-4 flex items-center justify-between">
+    <h1 class="text-2xl font-bold tracking-tight">
+      <span class="text-blue-500">Organization</span>Employee-Hierarchy
+    </h1>
+    <div class="flex items-center gap-4">
+      <span class="text-gray-400 text-sm hidden sm:inline">Welcome, {{ currentUserName }}</span>
+      <button
+        (click)="logout()"
+        class="px-4 py-2 text-sm text-gray-300 hover:text-white border border-gray-700 rounded transition-colors"
+      >
+        Sign Out
+      </button>
+    </div>
+  </header>
+
+  <main class="flex-1 p-6">
+    <div class="max-w-7xl mx-auto space-y-6">
+      <!-- Controls -->
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <h2 class="text-3xl font-bold">Organization Chart</h2>
+        <div class="flex gap-3">
+          <button
+            (click)="goBackToDashboard()"
+            class="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-lg border border-gray-700 transition-colors"
+          >
+            Back
+          </button>
+          <button
+            (click)="onAddPositionClick()"
+            class="px-4 py-2 bg-teal-600 hover:bg-teal-500 text-white font-semibold rounded-lg transition-colors"
+          >
+            + Add Position
+          </button>
+        </div>
+      </div>
+
+      <!-- Loading State -->
+      <div *ngIf="isLoading" class="flex flex-col items-center justify-center py-20 text-gray-400">
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mb-4"></div>
+        <p>Loading hierarchy structure...</p>
+      </div>
+
+      <!-- Error State -->
+      <div
+        *ngIf="errorMessage && !isLoading"
+        class="bg-red-900/30 border border-red-800 text-red-200 p-4 rounded-lg text-center"
+      >
+        {{ errorMessage }}
+        <button (click)="loadHierarchy()" class="ml-4 underline hover:text-white">Retry</button>
+      </div>
+      <!-- Chart Container -->
+      <div
+        *ngIf="!isLoading && !errorMessage"
+        class="bg-gray-900 rounded-xl border border-gray-800"
+        style="height: 75vh; overflow: hidden"
+      >
+        <!-- The class 'org-chart' handles the scrolling internally now -->
+        <div class="org-chart">
+          <ul class="org-level">
+            <ng-container
+              *ngTemplateOutlet="orgNodes; context: { $implicit: treeNodes }"
+            ></ng-container>
+          </ul>
+
+          <ng-template #orgNodes let-nodes>
+            <li *ngFor="let node of nodes">
+              <!-- Node Card -->
+              <div
+                class="org-node cursor-pointer inline-flex flex-col items-center justify-center px-6 py-3 bg-blue-600 text-white rounded-2xl shadow-lg hover:bg-blue-500 hover:shadow-2xl transition transform hover:-translate-y-1"
+                (click)="goToDetail(node.data.id)"
+              >
+                <div class="text-sm sm:text-base md:text-lg font-semibold tracking-wide">
+                  {{ node.label }}
+                </div>
+                <div
+                  class="mt-1 text-[10px] sm:text-xs md:text-sm text-blue-100 max-w-xs text-center break-words w-full"
+                >
+                  {{ node.data.description || 'No Description' }}
+                </div>
+              </div>
+
+              <!-- Children Container -->
+              <!-- Added !nodes.length check to prevent empty ULs rendering lines -->
+              <ul class="org-level" *ngIf="node.children && node.children.length">
+                <ng-container
+                  *ngTemplateOutlet="orgNodes; context: { $implicit: node.children }"
+                ></ng-container>
+              </ul>
+            </li>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

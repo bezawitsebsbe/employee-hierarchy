@@ -1,0 +1,101 @@
+/* Org chart container - Allows scrolling for wide trees */
+.org-chart {
+  display: block; /* Changed from flex to allow inner content to expand naturally */
+  width: 100%;
+  height: 70vh;
+  overflow: auto; /* Crucial for scrolling */
+  text-align: center; /* Centers the root node initially */
+  padding: 20px; /* Breathing room */
+}
+
+/* Each hierarchical level */
+.org-chart ul {
+  padding-top: 20px; /* Increased to match connector height */
+  position: relative;
+  padding-left: 0;
+  margin: 0;
+  white-space: nowrap; /* FIX 1: Prevents children from wrapping to next line */
+  display: flex; /* Modern approach: helps with centering children */
+  justify-content: center;
+}
+
+/* Wrapper for each node */
+.org-chart li {
+  list-style-type: none;
+  text-align: center;
+  position: relative;
+  padding: 20px 10px 0 10px;
+  display: inline-block; /* Keeps tree structure */
+  vertical-align: top; /* FIX 2: Aligns connectors regardless of card height */
+}
+
+/* --- CONNECTORS --- */
+
+/* Horizontal connectors (The "Shoulders") */
+.org-chart li::before,
+.org-chart li::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  border-top: 1px solid #60a5fa; /* Blue line */
+  width: 50%;
+  height: 20px;
+}
+
+.org-chart li::before {
+  left: 0;
+  border-right: 1px solid #60a5fa;
+}
+
+.org-chart li::after {
+  right: 0;
+  border-left: 1px solid #60a5fa;
+}
+
+/* Remove lines for only child (Single leaf) */
+.org-chart li:only-child::before,
+.org-chart li:only-child::after {
+  display: none;
+}
+
+.org-chart li:only-child {
+  padding-top: 0;
+}
+
+/* Remove left connector on first child and right on last child */
+.org-chart li:first-child::before,
+.org-chart li:last-child::after {
+  border: 0 none;
+}
+
+/* Rounded corners for the edges */
+.org-chart li:last-child::before {
+  border-right: 1px solid #60a5fa;
+  border-radius: 0 5px 0 0;
+}
+
+.org-chart li:first-child::after {
+  border-radius: 5px 0 0 0;
+}
+
+/* Vertical line from PARENT down to CHILDREN group */
+/* We target the UL inside the LI */
+.org-chart ul ul::before {
+  content: '';
+  position: absolute;
+  top: 0; /* Starts at the top padding of the UL */
+  left: 50%;
+  border-left: 1px solid #60a5fa;
+  width: 0;
+  height: 20px; /* Matches the padding-top of the UL */
+  transform: translateX(-50%); /* Ensures perfect centering */
+}
+
+/* Node Styling */
+.org-node {
+  min-width: 200px;
+  max-width: 260px;
+  white-space: normal; /* FIX 3: Resets text wrapping inside the card */
+  position: relative;
+  z-index: 10; /* Ensures card sits above lines */
+}

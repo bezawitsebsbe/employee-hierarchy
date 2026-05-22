@@ -1,0 +1,48 @@
+<div class="min-h-screen bg-gray-950 text-gray-100 flex flex-col">
+  <header class="bg-gray-900 border-b border-gray-800 px-6 py-4 flex items-center justify-between">
+    <h1 class="text-2xl font-bold tracking-tight">
+      <span class="text-blue-500">Organization</span>Employee-Hierarchy
+    </h1>
+    <div class="flex items-center gap-4">
+      <span class="text-gray-400 text-sm hidden sm:inline">
+        Welcome, {{ currentUserName || 'User' }}
+      </span>
+      <button
+        (click)="logout()"
+        class="px-4 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800 rounded-md transition-colors border border-gray-700"
+      >
+        Sign Out
+      </button>
+    </div>
+  </header>
+
+  <main class="flex-1 p-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex items-center justify-between mb-6 gap-4">
+        <h2 class="text-3xl font-bold">Departments</h2>
+        <button
+          (click)="goBack()"
+          class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white font-semibold rounded-lg transition-colors"
+        >
+          Back
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div
+          *ngFor="let dept of (departments$ | async) || []"
+          class="bg-gray-900 rounded-xl p-6 border border-gray-800 hover:border-blue-600/50 transition-all cursor-pointer"
+          [routerLink]="['/positions', dept.id]"
+        >
+          <h3 class="text-2xl font-bold text-blue-400">{{ dept.name }}</h3>
+          <p class="text-gray-400 mt-2">{{ dept.description }}</p>
+          <p class="text-sm text-gray-500 mt-4">Click to view details</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="py-6 text-center text-gray-600 text-sm border-t border-gray-800">
+    © 2025 Organization Hierarchy • All rights reserved
+  </footer>
+</div>

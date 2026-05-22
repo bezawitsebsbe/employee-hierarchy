@@ -1,0 +1,113 @@
+<div class="min-h-screen bg-gray-950 text-gray-100 flex flex-col">
+  <!-- Header -->
+  <header class="bg-gray-900 border-b border-gray-800 px-6 py-4 flex items-center justify-between">
+    <h1 class="text-2xl font-bold tracking-tight">
+      <span class="text-blue-500">Organization</span>Employee-Hierarchy
+    </h1>
+
+    <div class="flex items-center gap-4">
+      <span class="text-gray-400 text-sm hidden sm:inline">
+        Welcome, {{ currentUserName || 'User' }}
+      </span>
+      <button
+        (click)="logout()"
+        class="px-4 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800 rounded-md transition-colors border border-gray-700"
+      >
+        Sign Out
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 p-6">
+    <div class="max-w-6xl mx-auto space-y-12">
+      <!-- Welcome Section -->
+      <div class="text-center space-y-4">
+        <h2 class="text-4xl sm:text-5xl font-bold tracking-tight">
+          Welcome to PIS Employee-Hierarchy
+        </h2>
+        <p class="text-lg text-gray-400 max-w-xl mx-auto">
+          View and manage the employee hierarchy, showcasing clear organizational relationships and
+          roles.
+        </p>
+      </div>
+
+      <!-- Stats Cards – always visible -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- View Hierarchy Card -->
+        <div
+          class="bg-gray-900 rounded-xl p-6 border border-gray-800 hover:border-blue-600/50 transition-all duration-300 group cursor-pointer hover:shadow-lg hover:shadow-blue-900/20 cursor-pointer"
+          (click)="onHierarchyClick()"
+        >
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-semibold text-blue-400">Organization Hierarchy</h3>
+            <svg
+              class="w-8 h-8 text-blue-500 opacity-70 group-hover:opacity-100 transition-opacity duration-300"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </div>
+          <p class="text-gray-400 text-sm">Explore full structure</p>
+        </div>
+
+        <!-- Departments Card -->
+        <div
+          class="bg-gray-900 rounded-xl p-6 border border-gray-800 hover:border-purple-600/50 transition-all duration-300 hover:shadow-lg hover:shadow-purple-900/20 cursor-pointer"
+          (click)="onDepartmentsClick()"
+        >
+          <h3 class="text-xl font-semibold text-purple-400">Departments</h3>
+          <p class="text-5xl font-bold mt-4 text-white">
+            {{ ((departments$ | async) || []).length }}
+          </p>
+          <p class="text-gray-500 text-sm mt-2">Main branches under CEO</p>
+        </div>
+
+        <!-- Total Positions Card -->
+        <div
+          class="bg-gray-900 rounded-xl p-6 border border-gray-800 hover:border-teal-600/50 transition-all duration-300 hover:shadow-lg hover:shadow-teal-900/20 cursor-pointer"
+          (click)="onTotalPositionsClick()"
+        >
+          <h3 class="text-xl font-semibold text-teal-400">Total Positions</h3>
+          <p class="text-5xl font-bold mt-4 text-white">{{ totalPositions }}</p>
+          <p class="text-gray-500 text-sm mt-2">All roles in organization</p>
+        </div>
+      </div>
+
+      <!-- Add Position Button -->
+      <div
+        (click)="onAddPositionClick()"
+        class="bg-teal-700 hover:bg-teal-900 rounded-xl p-6 border border-gray-800 hover:border-teal-600/50 transition-all duration-300 group cursor-pointer hover:shadow-lg hover:shadow-teal-900/20 flex items-center justify-center gap-3"
+      >
+        <svg
+          class="w-6 h-6 text-teal-100 group-hover:text-teal-300"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 4v16m8-8H4"
+          />
+        </svg>
+        <span class="text-xl font-semibold text-teal-100 group-hover:text-teal-300"
+          >Add New Position</span
+        >
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="py-6 text-center text-gray-600 text-sm border-t border-gray-800 mt-auto">
+    © 2025 Organization Hierarchy • All rights reserved
+  </footer>
+</div>

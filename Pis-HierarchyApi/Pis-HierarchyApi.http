@@ -1,0 +1,6 @@
+@Pis_HierarchyApi_HostAddress = http://localhost:5135
+
+GET {{Pis_HierarchyApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
