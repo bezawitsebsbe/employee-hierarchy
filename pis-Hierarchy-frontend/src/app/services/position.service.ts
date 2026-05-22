@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, of, tap ,map} from 'rxjs';
+import { Observable, catchError, of, tap, map } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface Position {
   id: number;
@@ -11,8 +12,7 @@ export interface Position {
 
 @Injectable({ providedIn: 'root' })
 export class PositionService {
-  // Use Angular dev-server proxy so calls go through /api to the backend
-  private apiUrl = '/api/positions';
+  private apiUrl = `${environment.apiUrl}/api/positions`;
 
   constructor(private http: HttpClient) {}
 
@@ -34,8 +34,9 @@ export class PositionService {
       }),
     );
   }
-  getStats() {
-    return this.http.get<any>('/api/positions/stats');
+
+  getStats(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/stats`);
   }
 
   create(position: Omit<Position, 'id'>): Observable<Position> {
@@ -51,7 +52,6 @@ export class PositionService {
   }
 
   getByDepartment(departmentName: string): Observable<Position[]> {
-    // Optional: filter client-side for now
     return this.getAll().pipe(
       map((positions) =>
         positions.filter(

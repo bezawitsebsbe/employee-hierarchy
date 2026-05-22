@@ -62,6 +62,16 @@ else
 {
     app.UseHttpsRedirection();
 }
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend",
+        policy =>
+        {
+            policy.WithOrigins("https://YOUR-NETLIFY-URL.netlify.app")
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
 
 app.UseAuthentication();
 app.UseAuthorization();

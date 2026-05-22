@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap, catchError } from 'rxjs';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = '/api/auth'; // Proxy will forward to backend
+  private apiUrl = `${environment.apiUrl}/api/auth`;
 
   constructor(
     private http: HttpClient,
@@ -17,8 +18,8 @@ export class AuthService {
   login(email: string, password: string): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/login`, { email, password }).pipe(
       tap((response) => {
-        // Backend returns { Token: "<jwt>" } (capital T)
         const token = response.token || response.Token;
+
         if (token) {
           this.saveToken(token);
         } else {
@@ -36,6 +37,7 @@ export class AuthService {
     return this.http.post<any>(`${this.apiUrl}/register`, { email, password }).pipe(
       tap((response) => {
         const token = response.token || response.Token;
+
         if (token) {
           this.saveToken(token);
         } else {
@@ -68,6 +70,7 @@ export class AuthService {
 
   getCurrentUser(): string | null {
     const token = this.getToken();
+
     if (!token) {
       console.log('No token in storage');
       return null;
@@ -75,9 +78,9 @@ export class AuthService {
 
     try {
       const payload = JSON.parse(atob(token.split('.')[1]));
-      console.log('JWT payload:', payload); // ← this will show all claims
 
-      // Try common claim names
+      console.log('JWT payload:', payload);
+
       return (
         payload.email ||
         payload.sub ||
