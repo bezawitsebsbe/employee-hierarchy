@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Pis-HierarchyApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+098445a70fcb5eeb4bf65dba231390dedadb5424")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d3625a8aa81fd8e479e40cef05aefc2d39a82377")]
 [assembly: System.Reflection.AssemblyProductAttribute("Pis-HierarchyApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Pis-HierarchyApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
